@@ -20,7 +20,6 @@ function findChannel() {
       if (currentName.includes(channelSearch.toLowerCase())) {
         results.push(currentChannel.name + resultMiddle + i);
         usedChannels.push(currentChannel.name.replaceAll(" ", "_"));
-        //document.getElementById("channelResults").innerText = currentChannel.name + " is on channel number " + i;
       }
     }
   }
