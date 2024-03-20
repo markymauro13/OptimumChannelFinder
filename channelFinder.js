@@ -42,3 +42,13 @@ function findChannel() {
   }
   document.getElementById("channelError").innerText = "";
 }
+
+function toggleTheme() {
+  let body = document.getElementById("main");
+  let currentTheme = body.getAttribute("data-bs-theme");
+  if (currentTheme === "dark") {
+    body.setAttribute("data-bs-theme", "light");
+  } else {
+    body.setAttribute("data-bs-theme", "dark");
+  }
+}
