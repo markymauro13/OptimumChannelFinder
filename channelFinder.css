@@ -1,3 +1,6 @@
+html {
+  overflow-y: scroll;
+}
 #channelName {
   margin-bottom: 1rem;
   font-size: 16px;
