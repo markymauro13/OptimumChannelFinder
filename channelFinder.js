@@ -1,9 +1,11 @@
 document.getElementById("channelName").onkeyup = findChannel;
+document.getElementById("oneChannelPerLine").onclick = findChannel;
 
 function findChannel() {
   let results = [];
   let usedChannels = [];
   let channelSearch = document.getElementById("channelName").value;
+  let channelCheckbox = document.getElementById("oneChannelPerLine").checked;
   const resultMiddle = " is on channel ";
   if (channelSearch === "") {
     document.getElementById("channelResults").innerText = "Missing input";
@@ -25,7 +27,7 @@ function findChannel() {
   for (let i = 0; i < results.length; i++) {
     let channelID = usedChannels[i];
     let tempChannel = document.getElementById(channelID);
-    if (tempChannel === null) {
+    if (channelCheckbox || tempChannel === null) {
       document.getElementById("channelResults").innerHTML += '<div id="' + channelID + '" class="channelList">' + results[i] + "</div>";
     } else {
       let formattedResult = results[i].slice(channelID.length + resultMiddle.length);
