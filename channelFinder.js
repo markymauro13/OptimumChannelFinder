@@ -8,7 +8,8 @@ function findChannel() {
   let channelCheckbox = document.getElementById("oneChannelPerLine").checked;
   const resultMiddle = " is on channel ";
   if (channelSearch === "") {
-    document.getElementById("channelResults").innerText = "Missing input";
+    document.getElementById("channelError").innerText = "Missing input";
+    document.getElementById("channelResults").innerText = "";
     return;
   }
   let jsonLength = Math.max(...Object.keys(channelData.channels).map(Number));
@@ -35,6 +36,9 @@ function findChannel() {
     }
   }
   if (results.length === 0) {
-    document.getElementById("channelResults").innerText = "No results found";
+    document.getElementById("channelError").innerText = "No results found";
+    document.getElementById("channelResults").innerText = "";
+    return;
   }
+  document.getElementById("channelError").innerText = "";
 }
