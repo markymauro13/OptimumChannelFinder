@@ -1,10 +1,10 @@
-document.getElementById("channelName").onkeyup = findChannel;
+document.getElementById("channelInput").onkeyup = findChannel;
 document.getElementById("oneChannelPerLine").onclick = findChannel;
 
 function findChannel() {
   let results = [];
   let usedChannels = [];
-  let channelSearch = document.getElementById("channelName").value;
+  let channelSearch = document.getElementById("channelInput").value;
   let channelCheckbox = document.getElementById("oneChannelPerLine").checked;
   const resultMiddle = " is on channel ";
   const classes = 'class="container mt-3"';
