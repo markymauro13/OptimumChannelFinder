@@ -47,13 +47,13 @@ function findChannel() {
 }
 
 function toggleTheme() {
-  let body = document.getElementById("main");
-  let currentTheme = body.getAttribute("data-bs-theme");
+  let html = document.getRootNode().lastChild;
+  let currentTheme = html.getAttribute("data-bs-theme");
   if (currentTheme === "dark") {
-    body.setAttribute("data-bs-theme", "light");
+    html.setAttribute("data-bs-theme", "light");
     document.getElementById("themeButton").innerText = "Dark Mode";
   } else {
-    body.setAttribute("data-bs-theme", "dark");
+    html.setAttribute("data-bs-theme", "dark");
     document.getElementById("themeButton").innerText = "Light Mode";
   }
 }
