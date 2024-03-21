@@ -25,10 +25,8 @@ function findChannel() {
       let currentName = currentChannel.name.toLowerCase();
       let currentPackages = currentChannel.packages;
       if (currentName.includes(channelSearch.toLowerCase())) {
-        let hdOnly = currentChannel.hdOnly && packageType == "High Definition";
         let packageSupported = currentPackages.includes(packageType);
-        let showAll = packageType === "all";
-        if (hdOnly || showAll || packageSupported) {
+        if (packageType || packageSupported) {
           results.push(currentChannel.name + resultMiddle + i);
           usedChannels.push(currentChannel.name.replaceAll(" ", "_"));
         }
