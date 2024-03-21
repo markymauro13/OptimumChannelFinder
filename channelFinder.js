@@ -47,7 +47,7 @@ function findChannel() {
 }
 
 function toggleTheme() {
-  let html = document.getRootNode().lastChild;
+  let html = document.lastChild;
   let currentTheme = html.getAttribute("data-bs-theme");
   if (currentTheme === "dark") {
     html.setAttribute("data-bs-theme", "light");
