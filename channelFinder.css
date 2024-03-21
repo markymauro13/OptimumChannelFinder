@@ -31,3 +31,7 @@ html {
   border-color: orange;
   border-width: 4px;
 }
+select {
+  padding: 5px;
+  border-radius: 20px;
+}
