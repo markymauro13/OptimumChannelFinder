@@ -5,7 +5,10 @@ html {
   margin-bottom: 1rem;
   font-size: 16px;
   padding: 5px;
+  border: none;
+  text-align: center;
   border-radius: 20px;
+  background-color: #848484;
 }
 #channelInput:hover {
   background-color: #1e1e1e;
@@ -19,4 +22,10 @@ html {
   color: red;
   font-weight: bolder;
   font-size: 16px;
+}
+#themeButton {
+  border-radius: 10px;
+  border: none;
+  padding: 5px;
+  font-weight: bold;
 }

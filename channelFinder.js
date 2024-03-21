@@ -48,7 +48,9 @@ function toggleTheme() {
   let currentTheme = body.getAttribute("data-bs-theme");
   if (currentTheme === "dark") {
     body.setAttribute("data-bs-theme", "light");
+    document.getElementById("themeButton").innerText = "Dark Mode";
   } else {
     body.setAttribute("data-bs-theme", "dark");
+    document.getElementById("themeButton").innerText = "Light Mode";
   }
 }
