@@ -25,8 +25,8 @@ function findChannel() {
       let currentName = currentChannel.name.toLowerCase();
       let currentPackages = currentChannel.packages;
       if (currentName.includes(channelSearch.toLowerCase())) {
-        let packageSupported = currentPackages.includes(packageType);
-        if (packageType || packageSupported) {
+        let packageSupported = currentPackages.includes(packageType)|| packageType == "all";
+        if (packageSupported) {
           results.push(currentChannel.name + resultMiddle + i);
           usedChannels.push(currentChannel.name.replaceAll(" ", "_"));
         }
