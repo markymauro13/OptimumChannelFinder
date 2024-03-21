@@ -7,6 +7,7 @@ function findChannel() {
   let channelSearch = document.getElementById("channelName").value;
   let channelCheckbox = document.getElementById("oneChannelPerLine").checked;
   const resultMiddle = " is on channel ";
+  const classes = 'class="container mt-3" id="';
   if (channelSearch === "") {
     document.getElementById("channelError").innerText = "Missing input";
     document.getElementById("channelResults").innerText = "";
@@ -28,7 +29,7 @@ function findChannel() {
     let channelID = usedChannels[i];
     let tempChannel = document.getElementById(channelID);
     if (channelCheckbox || tempChannel === null) {
-      document.getElementById("channelResults").innerHTML += '<div id="' + channelID + '" class="channelList">' + results[i] + "</div>";
+      document.getElementById("channelResults").innerHTML += "<div " + classes + channelID + '" class="channelList">' + results[i] + "</div>";
     } else {
       let formattedResult = results[i].slice(channelID.length + resultMiddle.length);
       document.getElementById(channelID).innerText += ", and " + formattedResult;
