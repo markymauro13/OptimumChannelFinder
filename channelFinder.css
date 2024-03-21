@@ -25,7 +25,9 @@ html {
 }
 #themeButton {
   border-radius: 10px;
-  border: none;
-  padding: 5px;
+  padding: 8px;
   font-weight: bold;
+  border-style: dotted;
+  border-color: orange;
+  border-width: 4px;
 }
