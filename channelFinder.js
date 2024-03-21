@@ -6,12 +6,15 @@ function findChannel() {
   let usedChannels = [];
   let channelSearch = document.getElementById("channelInput").value;
   let channelCheckbox = document.getElementById("oneChannelPerLine").checked;
-  const resultMiddle = " is on channel ";
+  let resultMiddle = " is on channel ";
   const classes = 'class="container mt-3"';
   if (channelSearch === "") {
     document.getElementById("channelError").innerText = "Missing input";
     document.getElementById("channelResults").innerText = "";
     return;
+  }
+  if (!channelCheckbox) {
+    resultMiddle = " is on channel(s) ";
   }
   let jsonLength = Math.max(...Object.keys(channelData.channels).map(Number));
   for (let i = 0; i <= jsonLength; i++) {
@@ -32,7 +35,7 @@ function findChannel() {
       document.getElementById("channelResults").innerHTML += "<div " + classes + ' id="' + channelID + '">' + results[i] + "</div>";
     } else {
       let formattedResult = results[i].slice(channelID.length + resultMiddle.length);
-      document.getElementById(channelID).innerText += ", and " + formattedResult;
+      document.getElementById(channelID).innerText += ", " + formattedResult;
     }
   }
   if (results.length === 0) {
