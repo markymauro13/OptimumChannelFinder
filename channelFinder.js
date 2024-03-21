@@ -1,10 +1,12 @@
 document.getElementById("channelInput").onkeyup = findChannel;
 document.getElementById("oneChannelPerLine").onclick = findChannel;
+document.getElementById("packageType").onchange = findChannel;
 
 function findChannel() {
   let results = [];
   let usedChannels = [];
   let channelSearch = document.getElementById("channelInput").value;
+  let packageType = document.getElementById("packageType").value;
   let channelCheckbox = document.getElementById("oneChannelPerLine").checked;
   let resultMiddle = " is on channel ";
   const classes = 'class="container mt-3"';
@@ -16,14 +18,20 @@ function findChannel() {
   if (!channelCheckbox) {
     resultMiddle = " is on channel(s) ";
   }
-  let jsonLength = Math.max(...Object.keys(channelData.channels).map(Number));
-  for (let i = 0; i <= jsonLength; i++) {
+  let jsonMaxChannel = Math.max(...Object.keys(channelData.channels).map(Number));
+  for (let i = 0; i <= jsonMaxChannel; i++) {
     let currentChannel = channelData.channels[i];
     if (currentChannel !== undefined) {
       let currentName = currentChannel.name.toLowerCase();
+      let currentPackages = currentChannel.packages;
       if (currentName.includes(channelSearch.toLowerCase())) {
-        results.push(currentChannel.name + resultMiddle + i);
-        usedChannels.push(currentChannel.name.replaceAll(" ", "_"));
+        let hdOnly = currentChannel.hdOnly && packageType == "High Definition";
+        let packageSupported = currentPackages.includes(packageType);
+        let showAll = packageType === "all";
+        if (hdOnly || showAll || packageSupported) {
+          results.push(currentChannel.name + resultMiddle + i);
+          usedChannels.push(currentChannel.name.replaceAll(" ", "_"));
+        }
       }
     }
   }
