@@ -1,4 +1,4 @@
-optimumChannelData = {
+var optimumChannelData = {
   channels: {
     1: {
       name: "Cheddar News",
