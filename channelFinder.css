@@ -4,11 +4,12 @@ html {
 #channelInput {
   margin-bottom: 1rem;
   font-size: 16px;
+  font-weight: bold;
   padding: 5px;
   border: none;
   text-align: center;
   border-radius: 20px;
-  background-color: #848484;
+  background-color: #d3d3d3;
 }
 #channelInput:hover {
   background-color: #1e1e1e;
@@ -24,14 +25,16 @@ html {
   font-size: 16px;
 }
 #themeButton {
+  font-size: 12px;
   border-radius: 10px;
-  padding: 8px;
   font-weight: bold;
   border-style: dotted;
   border-color: orange;
-  border-width: 4px;
+  border-width: 2px;
 }
 select {
   padding: 5px;
   border-radius: 20px;
+  font-size: 16px;
+  font-weight: bold;
 }

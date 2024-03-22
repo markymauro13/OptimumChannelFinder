@@ -12,25 +12,28 @@
       crossorigin="anonymous"
     />
   </head>
-  <body id="main" class="container text-center my-3">
-    <button id="themeButton" class="ms-auto" onclick="toggleTheme()">Light Mode</button>
-    <h1>Input a Channel Name</h1>
-    <input autofocus type="text" id="channelInput" />
-    <select id="packageType" class="ms-2">
-      <option value="all">All Packages</option>
-      <option value="Basic TV">Basic TV</option>
-      <option value="Core TV">Core TV</option>
-      <option value="Value TV">Value TV</option>
-      <option value="Select TV">Select TV</option>
-      <option value="Premier TV">Premier TV</option>
-    </select>
-    <div>
-      <input type="checkbox" id="oneChannelPerLine" name="oneChannelPerLine" checked="true" />
-      <label for="oneChannelPerLine">One channel number per line</label>
+  <body id="main" class="my-3">
+    <div class="float-end me-2">
+      <button id="themeButton" onclick="toggleTheme()">Light</button>
     </div>
-    <hr />
-    <div id="channelResults"></div>
-    <div id="channelError"></div>
+    <div class="container text-center">
+      <select id="provider" class="ms-2 my-2">
+        <option value="">Select a provider</option>
+        <option value="optimumChannelData">Optimum</option>
+      </select>
+      <h2>Input a Channel Name</h2>
+      <input autofocus type="text" id="channelInput" />
+      <select id="packageType" class="ms-2">
+        <option value="all">All Packages</option>
+      </select>
+      <div>
+        <input type="checkbox" id="oneChannelPerLine" name="oneChannelPerLine" checked="true" />
+        <label for="oneChannelPerLine">One channel number per line</label>
+      </div>
+      <hr />
+      <div id="channelResults"></div>
+      <div id="channelError"></div>
+    </div>
     <script src="./channelData.js"></script>
     <script src="./channelFinder.js"></script>
 
