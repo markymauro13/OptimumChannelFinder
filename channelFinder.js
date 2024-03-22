@@ -1,14 +1,15 @@
 // remove for production #############################
 document.getElementById("provider").selectedIndex = 1;
-updateSelect();
+updateProvider();
 // ###################################################
 
 document.getElementById("channelInput").onkeyup = findChannel;
 document.getElementById("oneChannelPerLine").onclick = findChannel;
 document.getElementById("packageType").onchange = findChannel;
-document.getElementById("provider").onchange = updateSelect;
+document.getElementById("provider").onchange = updateProvider;
+document.getElementById("themeButton").onclick = toggleTheme;
 
-function updateSelect() {
+function updateProvider() {
   let currentProvider = document.getElementById("provider").value;
   let selectElement = document.getElementById("packageType");
   if (currentProvider === "") {
