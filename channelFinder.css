@@ -12,12 +12,10 @@ html {
   border-width: 2px;
 }
 #channelInput:hover {
-  background-color: #1e1e1e;
-  color: white;
+  background-color: #3a3939;
 }
 #channelInput:focus {
-  background-color: #1e1e1e;
-  color: white;
+  background-color: #3a3939;
 }
 #channelError {
   color: red;
@@ -49,4 +47,19 @@ select {
 }
 #sun-fill {
   fill: #e2e0e0;
+}
+[data-bs-theme="light"] {
+  --bs-body-bg: #eee9e9 !important;
+  --bs-body-bg-rgb: #eee9e9 !important;
+  --bs-tertiary-bg: #eee9e9 !important;
+
+  #channelInput {
+    background-color: #eee9e9 !important;
+  }
+  #provider {
+    background-color: #eee9e9 !important;
+  }
+  #packageType {
+    background-color: #eee9e9 !important;
+  }
 }
