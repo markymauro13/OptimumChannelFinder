@@ -1,44 +1,93 @@
-document.getElementById("channelName").onkeyup = findChannel;
+// remove for production #############################
+document.getElementById("provider").selectedIndex = 1;
+updateProvider();
+// ###################################################
+
+document.getElementById("channelInput").onkeyup = findChannel;
 document.getElementById("oneChannelPerLine").onclick = findChannel;
+document.getElementById("packageType").onchange = findChannel;
+document.getElementById("provider").onchange = updateProvider;
+document.getElementById("themeButton").onclick = toggleTheme;
+
+function updateProvider() {
+  let currentProvider = document.getElementById("provider").value;
+  let selectElement = document.getElementById("packageType");
+  selectElement.innerHTML = '<option value="all">All Packages</option>';
+  if (currentProvider === "") {
+    findChannel();
+    return;
+  }
+  let packages = Object.keys(window[currentProvider].packages);
+  for (let i = 0; i < packages.length; i++) {
+    let option = document.createElement("option");
+    option.text = packages[i];
+    option.value = packages[i];
+    selectElement.add(option);
+  }
+  findChannel();
+}
 
 function findChannel() {
-  let results = [];
-  let usedChannels = [];
-  let channelSearch = document.getElementById("channelName").value;
+  let currentProvider = window[document.getElementById("provider").value];
+  let channelSearch = document.getElementById("channelInput").value;
+  let packageType = document.getElementById("packageType").value;
   let channelCheckbox = document.getElementById("oneChannelPerLine").checked;
-  const resultMiddle = " is on channel ";
-  if (channelSearch === "") {
-    document.getElementById("channelError").innerText = "Missing input";
+  let cInnerTextMid = " is on channel ";
+  const classes = 'class="container mt-3"';
+  if (channelSearch === "" || currentProvider === undefined) {
+    // if (currentProvider !== undefined) {
+    //   document.getElementById("channelInput").focus();
+    // }
     document.getElementById("channelResults").innerText = "";
     return;
   }
-  let jsonLength = Math.max(...Object.keys(channelData.channels).map(Number));
-  for (let i = 0; i <= jsonLength; i++) {
-    let currentChannel = channelData.channels[i];
+  if (!channelCheckbox) {
+    cInnerTextMid = " is on channel(s) ";
+  }
+  let jsonChannels = Object.keys(currentProvider.channels);
+  document.getElementById("channelResults").innerText = "";
+  for (let i = 0; i < jsonChannels.length; i++) {
+    let currentChannelNumber = jsonChannels[i];
+    let currentChannel = currentProvider.channels[currentChannelNumber];
     if (currentChannel !== undefined) {
       let currentName = currentChannel.name.toLowerCase();
+      let currentPackages = currentChannel.packages;
+
       if (currentName.includes(channelSearch.toLowerCase())) {
-        results.push(currentChannel.name + resultMiddle + i);
-        usedChannels.push(currentChannel.name.replaceAll(" ", "_"));
-        //document.getElementById("channelResults").innerText = currentChannel.name + " is on channel number " + i;
+        let packageSupported = currentPackages.includes(packageType) || packageType === "all";
+        if (packageSupported) {
+          let cID = currentChannel.name.replaceAll(" ", "_");
+          let cInnerText = currentChannel.name + cInnerTextMid + currentChannelNumber;
+          let channelUsed = document.getElementById(cID);
+
+          if (channelCheckbox || channelUsed === null) {
+            let channelHTML = "<div " + classes + ' id="' + cID + '">' + cInnerText + "</div>";
+            document.getElementById("channelResults").innerHTML += channelHTML;
+          } else {
+            let formattedResult = cInnerText.slice(cID.length + cInnerTextMid.length);
+            document.getElementById(cID).innerText += ", " + formattedResult;
+          }
+        }
       }
     }
   }
-  document.getElementById("channelResults").innerText = "";
-  for (let i = 0; i < results.length; i++) {
-    let channelID = usedChannels[i];
-    let tempChannel = document.getElementById(channelID);
-    if (channelCheckbox || tempChannel === null) {
-      document.getElementById("channelResults").innerHTML += '<div id="' + channelID + '" class="channelList">' + results[i] + "</div>";
-    } else {
-      let formattedResult = results[i].slice(channelID.length + resultMiddle.length);
-      document.getElementById(channelID).innerText += ", and " + formattedResult;
-    }
-  }
-  if (results.length === 0) {
+
+  if (document.getElementById("channelResults").innerText == "") {
     document.getElementById("channelError").innerText = "No results found";
     document.getElementById("channelResults").innerText = "";
     return;
   }
   document.getElementById("channelError").innerText = "";
+}
+
+function toggleTheme() {
+  let html = document.lastChild;
+  let currentTheme = html.getAttribute("data-bs-theme");
+  if (currentTheme === "dark") {
+    html.setAttribute("data-bs-theme", "light");
+    document.getElementById("themeIcon").setAttribute("href", "#moon-stars-fill");
+  } else {
+    html.setAttribute("data-bs-theme", "dark");
+    document.getElementById("themeIcon").setAttribute("href", "#sun-fill");
+  }
 }

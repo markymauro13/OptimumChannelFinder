@@ -1,4 +1,4 @@
-const channelData = {
+var optimumChannelData = {
   channels: {
     1: {
       name: "Cheddar News",
@@ -1567,9 +1567,6 @@ const channelData = {
     },
     "Premier TV": {
       description: "Includes all Select TV channels plus additional premium channels and international channels.",
-    },
-    "High Definition": {
-      description: "Provides access to high-definition versions of available channels.",
     },
   },
   notes: [
