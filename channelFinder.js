@@ -14,7 +14,6 @@ function updateProvider() {
   let selectElement = document.getElementById("packageType");
   if (currentProvider === "") {
     selectElement.innerHTML = '<option value="all">All Packages</option>';
-    //document.getElementById("channelInput").value = "";
     findChannel();
     return;
   }
@@ -29,49 +28,51 @@ function updateProvider() {
 }
 
 function findChannel() {
-  let results = [];
-  let usedChannels = [];
   let currentProvider = window[document.getElementById("provider").value];
   let channelSearch = document.getElementById("channelInput").value;
   let packageType = document.getElementById("packageType").value;
   let channelCheckbox = document.getElementById("oneChannelPerLine").checked;
-  let resultMiddle = " is on channel ";
+  let cInnerTextMid = " is on channel ";
   const classes = 'class="container mt-3"';
   if (channelSearch === "" || currentProvider === undefined) {
-    // document.getElementById("channelError").innerText = "Missing input";
+    // if (currentProvider !== undefined) {
+    //   document.getElementById("channelInput").focus();
+    // }
     document.getElementById("channelResults").innerText = "";
     return;
   }
   if (!channelCheckbox) {
-    resultMiddle = " is on channel(s) ";
+    cInnerTextMid = " is on channel(s) ";
   }
-  let jsonMaxChannel = Math.max(...Object.keys(currentProvider.channels).map(Number));
-  for (let i = 0; i <= jsonMaxChannel; i++) {
-    let currentChannel = currentProvider.channels[i];
+  let jsonChannels = Object.keys(currentProvider.channels);
+  document.getElementById("channelResults").innerText = "";
+  for (let i = 0; i < jsonChannels.length; i++) {
+    let currentChannelNumber = jsonChannels[i];
+    let currentChannel = currentProvider.channels[currentChannelNumber];
     if (currentChannel !== undefined) {
       let currentName = currentChannel.name.toLowerCase();
       let currentPackages = currentChannel.packages;
+
       if (currentName.includes(channelSearch.toLowerCase())) {
         let packageSupported = currentPackages.includes(packageType) || packageType === "all";
         if (packageSupported) {
-          results.push(currentChannel.name + resultMiddle + i);
-          usedChannels.push(currentChannel.name.replaceAll(" ", "_"));
+          let cID = currentChannel.name.replaceAll(" ", "_");
+          let cInnerText = currentChannel.name + cInnerTextMid + currentChannelNumber;
+          let channelUsed = document.getElementById(cID);
+
+          if (channelCheckbox || channelUsed === null) {
+            let channelHTML = "<div " + classes + ' id="' + cID + '">' + cInnerText + "</div>";
+            document.getElementById("channelResults").innerHTML += channelHTML;
+          } else {
+            let formattedResult = cInnerText.slice(cID.length + cInnerTextMid.length);
+            document.getElementById(cID).innerText += ", " + formattedResult;
+          }
         }
       }
     }
   }
-  document.getElementById("channelResults").innerText = "";
-  for (let i = 0; i < results.length; i++) {
-    let channelID = usedChannels[i];
-    let tempChannel = document.getElementById(channelID);
-    if (channelCheckbox || tempChannel === null) {
-      document.getElementById("channelResults").innerHTML += "<div " + classes + ' id="' + channelID + '">' + results[i] + "</div>";
-    } else {
-      let formattedResult = results[i].slice(channelID.length + resultMiddle.length);
-      document.getElementById(channelID).innerText += ", " + formattedResult;
-    }
-  }
-  if (results.length === 0) {
+
+  if (document.getElementById("channelResults").innerText == "") {
     document.getElementById("channelError").innerText = "No results found";
     document.getElementById("channelResults").innerText = "";
     return;
