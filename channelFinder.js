@@ -1,26 +1,53 @@
+// remove for production #############################
+document.getElementById("provider").selectedIndex = 1;
+updateProvider();
+// ###################################################
+
 document.getElementById("channelInput").onkeyup = findChannel;
 document.getElementById("oneChannelPerLine").onclick = findChannel;
 document.getElementById("packageType").onchange = findChannel;
+document.getElementById("provider").onchange = updateProvider;
+document.getElementById("themeButton").onclick = toggleTheme;
+
+function updateProvider() {
+  let currentProvider = document.getElementById("provider").value;
+  let selectElement = document.getElementById("packageType");
+  if (currentProvider === "") {
+    selectElement.innerHTML = '<option value="all">All Packages</option>';
+    //document.getElementById("channelInput").value = "";
+    findChannel();
+    return;
+  }
+  let packages = Object.keys(window[currentProvider].packages);
+  for (let i = 0; i < packages.length; i++) {
+    let option = document.createElement("option");
+    option.text = packages[i];
+    option.value = packages[i];
+    selectElement.add(option);
+  }
+  findChannel();
+}
 
 function findChannel() {
   let results = [];
   let usedChannels = [];
+  let currentProvider = window[document.getElementById("provider").value];
   let channelSearch = document.getElementById("channelInput").value;
   let packageType = document.getElementById("packageType").value;
   let channelCheckbox = document.getElementById("oneChannelPerLine").checked;
   let resultMiddle = " is on channel ";
   const classes = 'class="container mt-3"';
-  if (channelSearch === "") {
-    document.getElementById("channelError").innerText = "Missing input";
+  if (channelSearch === "" || currentProvider === undefined) {
+    // document.getElementById("channelError").innerText = "Missing input";
     document.getElementById("channelResults").innerText = "";
     return;
   }
   if (!channelCheckbox) {
     resultMiddle = " is on channel(s) ";
   }
-  let jsonMaxChannel = Math.max(...Object.keys(channelData.channels).map(Number));
+  let jsonMaxChannel = Math.max(...Object.keys(currentProvider.channels).map(Number));
   for (let i = 0; i <= jsonMaxChannel; i++) {
-    let currentChannel = channelData.channels[i];
+    let currentChannel = currentProvider.channels[i];
     if (currentChannel !== undefined) {
       let currentName = currentChannel.name.toLowerCase();
       let currentPackages = currentChannel.packages;
@@ -57,9 +84,9 @@ function toggleTheme() {
   let currentTheme = html.getAttribute("data-bs-theme");
   if (currentTheme === "dark") {
     html.setAttribute("data-bs-theme", "light");
-    document.getElementById("themeButton").innerText = "Dark Mode";
+    document.getElementById("themeButton").innerText = "Dark";
   } else {
     html.setAttribute("data-bs-theme", "dark");
-    document.getElementById("themeButton").innerText = "Light Mode";
+    document.getElementById("themeButton").innerText = "Light";
   }
 }
