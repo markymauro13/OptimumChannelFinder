@@ -12,8 +12,8 @@ document.getElementById("themeButton").onclick = toggleTheme;
 function updateProvider() {
   let currentProvider = document.getElementById("provider").value;
   let selectElement = document.getElementById("packageType");
+  selectElement.innerHTML = '<option value="all">All Packages</option>';
   if (currentProvider === "") {
-    selectElement.innerHTML = '<option value="all">All Packages</option>';
     findChannel();
     return;
   }
