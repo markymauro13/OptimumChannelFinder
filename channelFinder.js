@@ -84,9 +84,9 @@ function toggleTheme() {
   let currentTheme = html.getAttribute("data-bs-theme");
   if (currentTheme === "dark") {
     html.setAttribute("data-bs-theme", "light");
-    document.getElementById("themeButton").innerText = "Dark";
+    document.getElementById("themeIcon").setAttribute("href", "#moon-stars-fill");
   } else {
     html.setAttribute("data-bs-theme", "dark");
-    document.getElementById("themeButton").innerText = "Light";
+    document.getElementById("themeIcon").setAttribute("href", "#sun-fill");
   }
 }

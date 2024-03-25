@@ -25,11 +25,11 @@ html {
   font-size: 16px;
 }
 #themeButton {
+  padding: 3px;
   font-size: 12px;
   border-radius: 10px;
-  font-weight: bold;
-  border-style: dotted;
-  border-color: orange;
+  border-style: solid;
+  border-color: black;
   border-width: 2px;
 }
 select {
@@ -38,4 +38,9 @@ select {
   font-size: 16px;
   font-weight: bold;
   border-width: 2px;
+}
+#themeButton svg {
+  height: 20px;
+  width: 20px;
+  fill: rgb(0, 0, 0);
 }
