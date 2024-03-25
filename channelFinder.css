@@ -42,5 +42,8 @@ select {
 #themeButton svg {
   height: 20px;
   width: 20px;
-  fill: rgb(0, 0, 0);
+  fill: #1e1e1e;
+}
+#sun-fill {
+  fill: #e2e0e0;
 }
